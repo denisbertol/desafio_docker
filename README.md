@@ -10,13 +10,15 @@ Rodar: docker run denisbertol/codeeducation
 
 docker-compose.yml encontra-se no diretorio ./desafio_node
 
-Node
+**Node
 
 index.js encontra-se no diretorio ./desafio_node/node
+
 Dockerfile para criacao da imagem node encontra-se no diretorio ./desafio_node/node
 
-Nginx
+**Nginx
 
 nginx.conf encontra-se no diretorio ./desafio_node/nginx
+
 Dockerfile.prod para criacao da imagem nginx encontra-se no diretorio ./desafio_node/nginx
 
