@@ -6,11 +6,10 @@ services:
     build: 
       context: node
     container_name: app
-    entrypoint: dockerize -wait tcp://db:3306 -timeout 20s docker-entrypoint.sh node index.js
+    entrypoint: dockerize -wait tcp://db:3306 -timeout 20s docker-entrypoint.sh
+    command: ["node", "index.js"]
     networks: 
       - node-network
-    volumes: 
-      - ./node:/usr/src/app
     tty: true
     ports: 
       - "3000:3000"
@@ -25,6 +24,7 @@ services:
     tty: true
     volumes: 
       - ./mysql:/var/lib/mysql
+      - ./script.sql:/docker-entrypoint-initdb.d/script.sql
     environment: 
       - MYSQL_DATABASE=nodedb
       - MYSQL_ROOT_PASSWORD=root
@@ -36,12 +36,12 @@ services:
       context: ./nginx
       dockerfile: Dockerfile.prod
     container_name: nginx
-    entrypoint: dockerize -wait tcp://app:3000 -timeout 30s /docker-entrypoint.sh
+    entrypoint: dockerize -wait tcp://app:3000 -timeout 30s
     command: ["nginx", "-g", "daemon off;"]
     networks: 
       - node-network
     ports: 
-      - "8082:80"
+      - "8080:80"
     depends_on: 
        - app      
 

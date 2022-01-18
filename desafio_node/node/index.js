@@ -10,13 +10,17 @@ const config = {
 const mysql = require('mysql')
 const connection = mysql.createConnection(config)
 
-const insert = `INSERT INTO people(name) values('Denis')`
+let insert = `INSERT INTO people(name) values('Denis')`
 connection.query(insert)
 
 connection.query("SELECT name FROM people", function (err, result, fields) {
-      if (err) throw err;
+    let returnstring = '<h1>Full Cycle Rocks!</h1></br>'
+      if (err) throw err;      
         app.get('/', (req,res) => {
-            res.send('<h1>Full Cycle</h1></br>' + result[0].name)
+            result.forEach(function(item, index, array) {
+                returnstring = returnstring + '<h2>' + result[index].name + '</h2></br>'
+              })
+            res.send(returnstring)
         })
     });
 
